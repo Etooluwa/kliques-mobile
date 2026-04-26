@@ -12,6 +12,7 @@ import * as Haptics from 'expo-haptics';
 import * as Linking from 'expo-linking';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 
 import { BASE_URL, COLORS } from '../constants/config';
@@ -82,6 +83,7 @@ export default function KliquesWebView({
   showLoading = true,
   pullToRefresh = true,
 }) {
+  const insets = useSafeAreaInsets();
   const webViewRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
   const [canGoBack, setCanGoBack] = useState(false);
@@ -202,6 +204,7 @@ export default function KliquesWebView({
           justifyContent: 'center',
           gap: 16,
           paddingHorizontal: 24,
+          paddingTop: insets.top,
           backgroundColor: COLORS.base,
         }}
       >
@@ -248,7 +251,7 @@ export default function KliquesWebView({
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.base }}>
+    <View style={{ flex: 1, paddingTop: insets.top, backgroundColor: COLORS.base }}>
       <StatusBar style="dark" />
       <WebView
         ref={webViewRef}
